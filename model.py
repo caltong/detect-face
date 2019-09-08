@@ -1,22 +1,19 @@
-from keras.applications.vgg16 import VGG16
-from keras.layers import Dense, AveragePooling2D
-from keras.preprocessing import image
-from keras.applications.vgg16 import preprocess_input
+import os
 import numpy as np
+from PIL import Image
 
-base_model = VGG16(weights='imagenet', include_top=False)
+data_folder_path = os.path.join('data', 'data_covered')
+files = os.listdir(data_folder_path)
+x_train = []
+for file in files:
+    path = os.path.join(data_folder_path, file)
+    image = Image.open(path)
+    x_train.append(image)
 
-x = base_model.output
-x = AveragePooling2D()(x)
-x = Dense(1024, activation='relu')(x)
-predictions = Dense(4)(x)
+y_train = []
+with open(os.path.join('data', 'margin.txt')) as file:
+    lines = file.readlines()
+    for line in lines:
+        y_train.append(line)
 
-
-img_path = 'data/data_covered/0.jpg'
-img = image.load_img(img_path, target_size=(224, 224))
-x = image.img_to_array(img)
-x = np.expand_dims(x, axis=0)
-x = preprocess_input(x)
-
-features = model.predict(x)
-print(features)
+y_train = np.array(y_train)
