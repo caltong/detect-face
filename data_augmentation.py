@@ -16,7 +16,15 @@ def rename_image():
     for file in files:
         image = Image.open(os.path.join(data_original_folder_path, file))
         image = image.convert('RGB')
-        file_name = os.path.join(data_rename_folder_path, str(file_number_counter)) + '.jpg'
+        if file_number_counter <= 9:
+            file_name_str = '000' + str(file_number_counter)
+        elif file_number_counter <= 99:
+            file_name_str = '00' + str(file_number_counter)
+        elif file_number_counter <= 999:
+            file_name_str = '0' + str(file_number_counter)
+        else:
+            file_name_str = str(file_number_counter)
+        file_name = os.path.join(data_rename_folder_path, file_name_str + '.jpg')
         image.save(file_name, 'jpeg')
         file_number_counter += 1
 
@@ -67,10 +75,20 @@ def make_data_set():
             image, margin = cover_to_make_new_photo(photo)
             margin_list.append(margin)
 
-            file_name = os.path.join(data_covered_folder_path, str(file_name_counter)) + '.jpg'
+            if file_name_counter <= 9:
+                file_name_str = '000' + str(file_name_counter)
+            elif file_name_counter <= 99:
+                file_name_str = '00' + str(file_name_counter)
+            elif file_name_counter <= 999:
+                file_name_str = '0' + str(file_name_counter)
+            else:
+                file_name_str = str(file_name_counter)
+
+            file_name = os.path.join(data_covered_folder_path, file_name_str + '.jpg')
             image.save(file_name, 'jpeg')
             file_name_counter += 1
 
     with open(os.path.join('data', 'margin.txt'), 'w') as f:
         for margin in margin_list:
             f.write(str(margin) + '\n')
+
