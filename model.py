@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 import math
 from keras.models import Sequential
-from keras.layers import Conv2D, Dense, MaxPool2D, Dropout, Flatten
+from keras.layers import Conv2D, Dense, MaxPool2D, Dropout, Flatten, BatchNormalization
 import keras
 from keras import backend as K
 
@@ -56,12 +56,15 @@ print(x_train.shape, y_train.shape)
 model = Sequential()
 
 model.add((Conv2D(filters=8, kernel_size=(5, 5), padding='same', activation='relu', input_shape=(224, 224, 3))))
+model.add(BatchNormalization())
 model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
 
 model.add(Conv2D(filters=16, kernel_size=(5, 5), padding='same', activation='relu'))
+model.add(BatchNormalization())
 model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
 
 model.add(Conv2D(filters=128, kernel_size=(5, 5), activation='relu'))
+
 # model.add(Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation='relu', input_shape=(224, 224, 3)))
 # model.add(Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation='relu'))
 # model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (112,112,64)
@@ -70,25 +73,12 @@ model.add(Flatten())
 model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(32, activation='relu'))
-model.add(Dense(4))
+model.add(Dropout(0.5))
+model.add(Dense(32, activation='relu'))
+model.add(Dense(4, activation='sigmoid'))
 
 Adam = keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 
-
-def loss(y_true, y_pred):
-    return K.mean((K.square(y_true - y_pred)))
-
-
-model.compile(loss=loss, optimizer=Adam, metrics=['accuracy'])
-model.fit(x_train, y_train, epochs=4, batch_size=16)
+model.compile(loss=keras.losses.mean_squared_error, optimizer=Adam, metrics=['accuracy'])
+model.fit(x_train, y_train, epochs=16, batch_size=32)
 model.save('model_use_vgg16.h5')
-
-while True:
-    path = input()
-    image = Image.open(path)
-    image = image.resize((224, 224), Image.ANTIALIAS)
-    pixel = np.asarray(image)
-    pixel = np.expand_dims(pixel, axis=0)
-    predict = model.predict(pixel)
-
-    print(predict)

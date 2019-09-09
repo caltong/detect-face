@@ -10,10 +10,13 @@ def loss(y_true, y_pred):
 
 model = keras.models.load_model('model_use_vgg16.h5')
 
-image = Image.open('data/data_covered/00000.jpg')
-image = image.resize((224, 224), Image.ANTIALIAS)
-pixel = np.asarray(image)
-pixel = np.expand_dims(pixel, axis=0)
-predict = model.predict(pixel)
+while True:
+    print('input image path:')
+    path = input()
+    image = Image.open(path)
+    image = image.resize((224, 224), Image.ANTIALIAS)
+    pixel = np.asarray(image)
+    pixel = np.expand_dims(pixel, axis=0)
+    predict = model.predict(pixel)
 
-print(predict)
+    print(predict)
