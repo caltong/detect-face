@@ -62,7 +62,7 @@ def cover_to_make_new_photo(photo_name):
     margin = [left_margin,
               up_margin,
               background.size[0] - photo.size[0] - left_margin,
-              background.size[1] - photo.size[1] - up_margin]  # 顺时针个方向margin
+              background.size[1] - photo.size[1] - up_margin]  # 顺时针个方向margin 左上右下
 
     return background, margin
 
