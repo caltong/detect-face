@@ -92,3 +92,7 @@ def make_data_set():
         for margin in margin_list:
             f.write(str(margin) + '\n')
 
+# 重命名
+# rename_image()
+# 生成数据
+# make_data_set()
