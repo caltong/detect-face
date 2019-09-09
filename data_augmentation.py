@@ -71,15 +71,17 @@ def make_data_set():
     file_name_counter = 0
     margin_list = []
     for photo in photos:
-        for i in range(100):
+        for i in range(10):
             image, margin = cover_to_make_new_photo(photo)
             margin_list.append(margin)
 
             if file_name_counter <= 9:
-                file_name_str = '000' + str(file_name_counter)
+                file_name_str = '0000' + str(file_name_counter)
             elif file_name_counter <= 99:
-                file_name_str = '00' + str(file_name_counter)
+                file_name_str = '000' + str(file_name_counter)
             elif file_name_counter <= 999:
+                file_name_str = '00' + str(file_name_counter)
+            elif file_name_counter <= 9999:
                 file_name_str = '0' + str(file_name_counter)
             else:
                 file_name_str = str(file_name_counter)
@@ -92,7 +94,8 @@ def make_data_set():
         for margin in margin_list:
             f.write(str(margin) + '\n')
 
+
 # 重命名
 # rename_image()
 # 生成数据
-# make_data_set()
+make_data_set()
