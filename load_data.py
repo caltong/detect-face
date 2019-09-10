@@ -50,7 +50,7 @@ def load_data():
         y_train[i] = [(224 - m2 + m0) / 2, (224 - m3 + m1) / 2, 224 - m2 - m0, 224 - m3 - m1]
 
     # 归一化
-    # x_train = x_train
-    # y_train = y_train
+    x_train = x_train / 255.0
+    y_train = y_train / 224
 
     return x_train, y_train

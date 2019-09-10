@@ -1,7 +1,3 @@
-import os
-import numpy as np
-from PIL import Image
-import math
 from keras.models import Sequential
 from keras.layers import Conv2D, Dense, MaxPool2D, Dropout, Flatten, BatchNormalization
 from keras.layers import LeakyReLU
@@ -22,39 +18,47 @@ model.add(
     Conv2D(filters=64, kernel_size=(3, 3), padding='same', input_shape=(224, 224, 3)))
 # model.add(Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation=LeakyReLU(alpha=0.1)))
 model.add(LeakyReLU(alpha=0.1))
+model.add(BatchNormalization())
 model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (112,112,64)
 
 model.add(Conv2D(filters=128, kernel_size=(3, 3), padding='same'))
 # model.add(Conv2D(filters=128, kernel_size=(3, 3), padding='same', activation=LeakyReLU(alpha=0.1)))
 model.add(LeakyReLU(alpha=0.1))
+model.add(BatchNormalization())
 model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (56,56,128)
 
 model.add(Conv2D(filters=256, kernel_size=(3, 3), padding='same'))
 # model.add(Conv2D(filters=256, kernel_size=(3, 3), padding='same', activation=LeakyReLU(alpha=0.1)))
 model.add(LeakyReLU(alpha=0.1))
+model.add(BatchNormalization())
 model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (28,28,256)
 
 model.add(Conv2D(filters=512, kernel_size=(3, 3), padding='same'))
 # model.add(Conv2D(filters=512, kernel_size=(3, 3), padding='same', activation=LeakyReLU(alpha=0.1)))
 model.add(LeakyReLU(alpha=0.1))
+model.add(BatchNormalization())
 model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (14,14,512)
 
 model.add(Conv2D(filters=512, kernel_size=(3, 3), padding='same'))
 # model.add(Conv2D(filters=512, kernel_size=(3, 3), padding='same', activation=LeakyReLU(alpha=0.1)))
 model.add(LeakyReLU(alpha=0.1))
+model.add(BatchNormalization())
 model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (7,7,512)
 
 model.add(Flatten())
 model.add(Dense(1024))
 model.add(LeakyReLU(alpha=0.1))
+model.add(BatchNormalization())
 model.add(Dropout(0.5))
 
 model.add(Dense(256))
 model.add(LeakyReLU(alpha=0.1))
+model.add(BatchNormalization())
 model.add(Dropout(0.5))
 
 model.add(Dense(64))
 model.add(LeakyReLU(alpha=0.1))
+model.add(BatchNormalization())
 model.add(Dense(4))
 
 Adam = keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
