@@ -36,10 +36,10 @@ for i in range(len(images)):
     width, height = image.size[0], image.size[1]
     width_ratio = 224 / width
     height_ratio = 224 / height
-    y_train[i][0] = int(math.ceil(y_train[i][0] * width_ratio))
-    y_train[i][2] = int(math.ceil(y_train[i][2] * width_ratio))
-    y_train[i][1] = int(math.ceil(y_train[i][1] * height_ratio))
-    y_train[i][3] = int(math.ceil(y_train[i][3] * height_ratio))
+    y_train[i][0] = y_train[i][0] * width_ratio
+    y_train[i][2] = y_train[i][2] * width_ratio
+    y_train[i][1] = y_train[i][1] * height_ratio
+    y_train[i][3] = y_train[i][3] * height_ratio
     # 缩放image
     image = image.resize((224, 224), Image.ANTIALIAS)
     pixel = np.asanyarray(image)
