@@ -2,7 +2,6 @@ import keras
 from PIL import Image
 import numpy as np
 from keras import backend as K
-import keras.losses
 
 
 # YOLO_v1 中x,y,w,h 损失函数
@@ -13,8 +12,6 @@ def loss(y_true, y_pred):
     value = a + b
     return value
 
-
-keras.losses.custom_loss = loss
 
 model = keras.models.load_model('model_use_vgg16.h5', custom_objects={'loss': loss})
 output = []
@@ -29,3 +26,4 @@ while True:
     predict = model.predict(pixel)
     output.append(predict)
     print(predict)
+    print(predict * 224)
