@@ -47,27 +47,39 @@ for i in range(len(images)):
 x_train = np.array(x_train)
 
 # 归一化
-x_train = x_train / 255.0
-y_train = y_train / 224.0
+# x_train = x_train
+# y_train = y_train
+
+# 使用YOLO_v1方式定义损失函数
+# 先处理margin数据 将四个margin转换为 x,y,w,h
+for i in range(y_train.shape[0]):
+    [m0, m1, m2, m3] = y_train[i]
+    y_train[i] = [(224 - m2 + m0) / 2, (224 - m3 + m1) / 2, 224 - m2 - m0, 224 - m3 - m1]
 
 print(x_train.shape, y_train.shape)
 # x_train (12000,224,224,3) y_train (12000,4)
 
 model = Sequential()
 
-model.add((Conv2D(filters=8, kernel_size=(5, 5), padding='same', activation='relu', input_shape=(224, 224, 3))))
-model.add(BatchNormalization())
-model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+model.add(Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation='relu', input_shape=(224, 224, 3)))
+model.add(Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation='relu'))
+model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (112,112,64)
 
-model.add(Conv2D(filters=16, kernel_size=(5, 5), padding='same', activation='relu'))
-model.add(BatchNormalization())
-model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+model.add(Conv2D(filters=128, kernel_size=(3, 3), padding='same', activation='relu'))
+model.add(Conv2D(filters=128, kernel_size=(3, 3), padding='same', activation='relu'))
+model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (56,56,128)
 
-model.add(Conv2D(filters=128, kernel_size=(5, 5), activation='relu'))
+model.add(Conv2D(filters=256, kernel_size=(3, 3), padding='same', activation='relu'))
+model.add(Conv2D(filters=256, kernel_size=(3, 3), padding='same', activation='relu'))
+model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (28,28,256)
 
-# model.add(Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation='relu', input_shape=(224, 224, 3)))
-# model.add(Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation='relu'))
-# model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (112,112,64)
+model.add(Conv2D(filters=512, kernel_size=(3, 3), padding='same', activation='relu'))
+model.add(Conv2D(filters=512, kernel_size=(3, 3), padding='same', activation='relu'))
+model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (14,14,512)
+
+model.add(Conv2D(filters=512, kernel_size=(3, 3), padding='same', activation='relu'))
+model.add(Conv2D(filters=512, kernel_size=(3, 3), padding='same', activation='relu'))
+model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (7,7,512)
 
 model.add(Flatten())
 model.add(Dense(128, activation='relu'))
@@ -75,10 +87,14 @@ model.add(Dropout(0.5))
 model.add(Dense(32, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(32, activation='relu'))
-model.add(Dense(4, activation='sigmoid'))
+model.add(Dense(4))
 
 Adam = keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 
+# def loss(y_true, y_pred):
+#     a =
+
+
 model.compile(loss=keras.losses.mean_squared_error, optimizer=Adam, metrics=['accuracy'])
-model.fit(x_train, y_train, epochs=16, batch_size=32)
+model.fit(x_train, y_train, epochs=64, batch_size=32)
 model.save('model_use_vgg16.h5')
