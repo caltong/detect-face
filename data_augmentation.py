@@ -55,8 +55,8 @@ def cover_to_make_new_photo(photo_name):
     photo = Image.open(os.path.join(data_rename_folder_path, photo_name))  # 读取photo
     background = create_pure_background(photo.size[0], photo.size[1])  # 生成背景
 
-    left_margin = int(random.random() * (background.size[0] - photo.size[0]))  # 左边距
-    up_margin = int(random.random() * (background.size[1] - photo.size[1]))  # 上边距
+    left_margin = int(np.random.normal(0.5, 0.1) * (background.size[0] - photo.size[0]))  # 左边距
+    up_margin = int(np.random.normal(0.5, 0.1) * (background.size[1] - photo.size[1]))  # 上边距
 
     background.paste(photo, (left_margin, up_margin))  # 合成
     margin = [left_margin,
