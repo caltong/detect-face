@@ -17,5 +17,5 @@ def loss(y_true, y_pred):
 
 model = keras.models.load_model('model_use_vgg16.h5', custom_objects={'loss': loss})
 
-model.fit(x_train, y_train, epochs=64, batch_size=32)
+model.fit(x_train, y_train, epochs=512, batch_size=32)
 model.save('model_use_vgg16.h5')
