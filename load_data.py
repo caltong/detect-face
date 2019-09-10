@@ -51,6 +51,6 @@ def load_data():
 
     # 归一化
     x_train = x_train / 255.0
-    y_train = y_train / 224
+    y_train = y_train / 224.0
 
     return x_train, y_train
