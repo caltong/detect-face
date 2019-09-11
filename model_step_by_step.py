@@ -1,9 +1,10 @@
 import keras
 from load_data import load_data
 from keras import backend as K
+from data_augmentation import make_data_set
+
 
 # K.set_floatx('float16')
-x_train, y_train = load_data()
 
 
 # YOLO_v1 中x,y,w,h 损失函数
@@ -17,5 +18,9 @@ def loss(y_true, y_pred):
 
 model = keras.models.load_model('model_use_vgg16.h5', custom_objects={'loss': loss})
 
-model.fit(x_train, y_train, epochs=2, batch_size=32)
-model.save('model_use_vgg16.h5')
+for i in range(300):
+    print('Round: ' + str(i))
+    make_data_set()
+    x_train, y_train = load_data()
+    model.fit(x_train, y_train, epochs=2, batch_size=32)
+    model.save('model_use_vgg16.h5')
