@@ -36,8 +36,8 @@ def create_pure_background(w, h):
     :param h: 高
     :return: image: 图像
     """
-    w_rate = random.random() / 2 + 1.0
-    h_rate = random.random() / 2 + 1.0
+    w_rate = np.random.normal(0.5, 0.1) / 2 + 1.0
+    h_rate = np.random.normal(0.5, 0.1) / 2 + 1.0
     w = int(w_rate * w)
     h = int(h_rate * h)
     color = tuple(np.random.randint(256, size=[3]))
