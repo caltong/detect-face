@@ -30,7 +30,7 @@ class CutPhoto(object):
         # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # 不考虑灰度 直接判断
         logger.info('Detect faces...')
         face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')  # 在opencv官网中找对应版本的xml文件
-        faces = face_cascade.detectMultiScale(image, scaleFactor=1.15, minNeighbors=5, minSize=(3, 3))  # 参数调整
+        faces = face_cascade.detectMultiScale(image, scaleFactor=1.15, minNeighbors=10, minSize=(3, 3))  # 参数调整
         search_info = "Find %d face." % len(faces) if len(faces) <= 1 else "Find %d faces." % len(faces)
         logger.info(search_info)
 
@@ -63,8 +63,9 @@ class CutPhoto(object):
         # print(faces)
         return file_name_list
 
-# cut_photo = CutPhoto('3.png')
-# cut_photo.cut_photo()
+
+cut_photo = CutPhoto('data/data_test/3.png')
+cut_photo.cut_photo()
 
 # # 读取图像，解决imread不能读取中文路径的问题
 # def cv_imread(file_path):
