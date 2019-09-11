@@ -1,5 +1,5 @@
 import keras
-from PIL import Image
+from PIL import Image, ImageDraw
 import numpy as np
 from keras import backend as K
 
@@ -25,5 +25,13 @@ while True:
     pixel = pixel / 255.0
     predict = model.predict(pixel)
     output.append(predict)
+    predict = [predict[0][0], predict[0][1], predict[0][2], predict[0][3]]
     print(predict)
-    print(predict * 224)
+    # image.show()
+    draw = ImageDraw.Draw(image)
+    for i in range(len(predict)):
+        predict[i] = float(predict[i])
+
+    x, y, w, h = predict[0] * 224, predict[1] * 224, predict[2] * 224, predict[3] * 224
+    draw.rectangle([x - w / 2, y - h / 2, x + w / 2, y + h / 2], width=5, outline='blue')
+    image.show()
