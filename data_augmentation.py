@@ -90,6 +90,24 @@ def make_data_set():
             image.save(file_name, 'jpeg')
             file_name_counter += 1
 
+    photo_with_no_margin = os.listdir(data_rename_folder_path)
+    for photo in photo_with_no_margin:
+        image = Image.open(os.path.join(data_rename_folder_path, photo))
+        margin_list.append([0, 0, 0, 0])
+        if file_name_counter <= 9:
+            file_name_str = '0000' + str(file_name_counter)
+        elif file_name_counter <= 99:
+            file_name_str = '000' + str(file_name_counter)
+        elif file_name_counter <= 999:
+            file_name_str = '00' + str(file_name_counter)
+        elif file_name_counter <= 9999:
+            file_name_str = '0' + str(file_name_counter)
+        else:
+            file_name_str = str(file_name_counter)
+        file_name = os.path.join(data_covered_folder_path, file_name_str + '.jpg')
+        image.save(file_name, 'jpeg')
+        file_name_counter += 1
+
     with open(os.path.join('data', 'margin.txt'), 'w') as f:
         for margin in margin_list:
             f.write(str(margin) + '\n')
