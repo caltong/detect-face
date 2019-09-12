@@ -7,7 +7,7 @@ from keras import backend as K
 # YOLO_v1 中x,y,w,h 损失函数
 def loss(y_true, y_pred):
     a = K.square(y_pred[:, 0] - y_true[:, 0]) + K.square(y_pred[:, 1] - y_true[:, 1])
-    b = K.square(K.abs(y_pred[:, 2]) - K.sqrt(y_true[:, 2])) + K.square(
+    b = K.square(K.sqrt(y_pred[:, 2]) - K.sqrt(y_true[:, 2])) + K.square(
         K.sqrt(y_pred[:, 3]) - K.sqrt(y_true[:, 3]))
     value = a + b
     return value
