@@ -48,17 +48,17 @@ model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))  # (7,7,512)
 model.add(Flatten())
 model.add(Dense(1024))
 model.add(LeakyReLU(alpha=0.1))
-#model.add(BatchNormalization())
+# model.add(BatchNormalization())
 model.add(Dropout(0.5))
 
 model.add(Dense(256))
 model.add(LeakyReLU(alpha=0.1))
-#model.add(BatchNormalization())
+# model.add(BatchNormalization())
 model.add(Dropout(0.5))
 
 model.add(Dense(64))
 model.add(LeakyReLU(alpha=0.1))
-#model.add(BatchNormalization())
+# model.add(BatchNormalization())
 model.add(Dense(4))
 model.add(Activation('sigmoid'))
 
@@ -68,8 +68,8 @@ Adam = keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, d
 # YOLO_v1 中x,y,w,h 损失函数
 def loss(y_true, y_pred):
     a = K.square(y_pred[:, 0] - y_true[:, 0]) + K.square(y_pred[:, 1] - y_true[:, 1])
-    b = K.square(K.sqrt(K.abs(y_pred[:, 2])) - K.sqrt(K.abs(y_true[:, 2]))) + K.square(
-        K.sqrt(K.abs(y_pred[:, 3])) - K.sqrt(K.abs(y_true[:, 3])))
+    b = K.square(K.abs(y_pred[:, 2]) - K.sqrt(y_true[:, 2])) + K.square(
+        K.sqrt(y_pred[:, 3]) - K.sqrt(y_true[:, 3]))
     value = a + b
     return value
 
