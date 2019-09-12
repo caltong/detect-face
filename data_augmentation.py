@@ -17,10 +17,12 @@ def rename_image():
         image = Image.open(os.path.join(data_original_folder_path, file))
         image = image.convert('RGB')
         if file_number_counter <= 9:
-            file_name_str = '000' + str(file_number_counter)
+            file_name_str = '0000' + str(file_number_counter)
         elif file_number_counter <= 99:
-            file_name_str = '00' + str(file_number_counter)
+            file_name_str = '000' + str(file_number_counter)
         elif file_number_counter <= 999:
+            file_name_str = '00' + str(file_number_counter)
+        elif file_number_counter <= 9999:
             file_name_str = '0' + str(file_number_counter)
         else:
             file_name_str = str(file_number_counter)
