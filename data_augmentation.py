@@ -73,7 +73,7 @@ def make_data_set():
     file_name_counter = 0
     margin_list = []
     for photo in photos:
-        for i in range(10):
+        for i in range(5):
             image, margin = cover_to_make_new_photo(photo)
             margin_list.append(margin)
 
