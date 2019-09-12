@@ -18,9 +18,15 @@ def loss(y_true, y_pred):
 
 model = keras.models.load_model('model_use_vgg16.h5', custom_objects={'loss': loss})
 
-for i in range(1600):
-    print('Round: ' + str(i))
-    make_data_set()
-    x_train, y_train = load_data()
-    model.fit(x_train, y_train, epochs=8, batch_size=32)
-    model.save('model_use_vgg16.h5')
+# 不同数据
+# for i in range(1600):
+#     print('Round: ' + str(i))
+#     make_data_set()
+#     x_train, y_train = load_data()
+#     model.fit(x_train, y_train, epochs=8, batch_size=32)
+#     model.save('model_use_vgg16.h5')
+
+# 同数据
+x_train, y_train = load_data()
+model.fit(x_train, y_train, epochs=32, batch_size=32)
+model.save('model_use_vgg16.h5')
