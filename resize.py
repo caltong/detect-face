@@ -25,5 +25,5 @@ class Resize(object):
         cv2.waitKey(0)
 
 
-photo = Resize('data/data_test/13.png-photo0.png')
-photo.resize()
+# photo = Resize('data/data_test/13.png-photo0.png')
+# photo.resize()
