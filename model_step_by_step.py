@@ -23,7 +23,7 @@ for i in range(1600):
     print('Round: ' + str(i))
     make_data_set()
     x_train, y_train = load_data()
-    model.fit(x_train, y_train, epochs=4, batch_size=32)
+    model.fit(x_train, y_train, epochs=1, batch_size=32)
     model.save('model_use_vgg16.h5')
 
 # 同数据
