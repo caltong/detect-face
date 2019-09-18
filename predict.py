@@ -13,7 +13,7 @@ def loss(y_true, y_pred):
     return value
 
 
-model = keras.models.load_model('model.h5', custom_objects={'loss': loss})
+model = keras.models.load_model('model_20190918.h5', custom_objects={'loss': loss})
 output = []
 while True:
     print('input image path:')
