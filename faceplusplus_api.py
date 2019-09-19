@@ -52,18 +52,9 @@ def faceplusplus_api(filepath):
         qrcont = resp.read()
         # if you want to load as json, you should decode first,
         # for example: json.loads(qrount.decode('utf-8'))
-        print(qrcont.decode('utf-8'))
+        # print(qrcont.decode('utf-8'))
+        data = json.loads(qrcont.decode('utf-8'))
     except urllib.error.HTTPError as e:
         print(e.read().decode('utf-8'))
 
-    data = json.loads(qrcont.decode('utf-8'))
-    left_eye = [data['faces'][0]['landmark']['left_eye_center']['x'],
-                data['faces'][0]['landmark']['left_eye_center']['y']]
-    right_eye = [data['faces'][0]['landmark']['right_eye_center']['x'],
-                 data['faces'][0]['landmark']['right_eye_center']['y']]
-
-    image = Image.open(filepath)
-    draw = ImageDraw.Draw(image)
-    draw.ellipse([left_eye[0] - 3, left_eye[1] - 3, left_eye[0] + 3, left_eye[1] + 3], fill='red')
-    draw.ellipse([right_eye[0] - 3, right_eye[1] - 3, right_eye[0] + 3, right_eye[1] + 3], fill='red')
-    image.show()
+    return data

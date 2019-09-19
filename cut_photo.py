@@ -47,8 +47,8 @@ class CutPhoto(object):
             faces_number = 0
             for faceRect in faces:  # 若有多张人脸的情况
                 x, y, w, h = faceRect
-                x1, y1 = x - int(0.3 * w), y - int(0.5 * h)
-                x2, y2 = x + int(1.3 * w), y + int(1.6 * h)
+                x1, y1 = x - int(0.5 * w), y - int(0.5 * h)
+                x2, y2 = x + int(1.5 * w), y + int(1.5 * h)
                 # cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2, 8, 0)
                 photo = image[y1:y2, x1:x2]
                 status = cv2.imwrite(self.file_path + '-' + 'photo' + str(faces_number) + '.png', photo)
@@ -58,14 +58,16 @@ class CutPhoto(object):
                 # cv2.imshow("img", photo)
                 # cv2.waitKey(0)
 
-        else:
-            print('Cut 0 photo')
-        # print(faces)
+                else:
+                    print('Cut 0 photo')
+                    # print(faces)
         return file_name_list
 
 
-cut_photo = CutPhoto('data/data_test/3.png')
-cut_photo.cut_photo()
+for i in range(1, 16):
+    path = 'data/data_test/' + str(i) + '.png'
+    cut_photo = CutPhoto(path)
+    cut_photo.cut_photo()
 
 # # 读取图像，解决imread不能读取中文路径的问题
 # def cv_imread(file_path):
