@@ -77,3 +77,4 @@ def loss(y_true, y_pred):
 model.compile(loss=loss, optimizer=Adam, metrics=['accuracy'])
 model.fit(x_train, y_train, epochs=4, batch_size=32)
 model.save('model_use_vgg16.h5')
+model.save('model_use_vgg16_fine_tuning.h5')

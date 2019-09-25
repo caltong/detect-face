@@ -118,4 +118,4 @@ def make_data_set():
 # 重命名
 # rename_image()
 # 生成数据
-make_data_set()
+# make_data_set()
