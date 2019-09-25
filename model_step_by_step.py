@@ -16,7 +16,7 @@ def loss(y_true, y_pred):
     return value
 
 
-model = keras.models.load_model('model_use_vgg16_use_vgg16_fine_tuning.h5', custom_objects={'loss': loss})
+model = keras.models.load_model('model_use_vgg16_fine_tuning.h5', custom_objects={'loss': loss})
 # model = keras.models.load_model('model_use_vgg16.h5')
 # 不同数据
 for i in range(50):
@@ -25,7 +25,7 @@ for i in range(50):
     x_train, y_train = load_data()
     model.compile(optimizer=SGD(lr=0.0001, momentum=0.9), loss=loss)
     model.fit(x_train, y_train, epochs=2, batch_size=32)
-    model.save('model_use_vgg16.h5')
+    model.save('model_use_vgg16_fine_tuning.h5')
 
 # 同数据
 # x_train, y_train = load_data()
