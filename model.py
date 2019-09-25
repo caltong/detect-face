@@ -10,7 +10,7 @@ from load_data import load_data
 x_train, y_train = load_data()
 
 print(x_train.shape, y_train.shape)
-# x_train (12000,224,224,3) y_train (12000,4)
+# x_train (3920,224,224,3) y_train (3920,4)
 
 model = Sequential()
 
