@@ -42,7 +42,7 @@ def create_pure_background(w, h):
     h_rate = random.random() / 3.0 + 1.0
     w = int(w_rate * w)
     h = int(h_rate * h)
-    color = tuple(np.random.randint(200, 256, size=[3]))
+    color = tuple(np.random.randint(256, size=[3]))
     image = Image.new('RGB', (w, h), color)
 
     return image
