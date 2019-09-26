@@ -4,6 +4,17 @@ from keras import backend as K
 from data_augmentation import make_data_set
 from keras.optimizers import SGD
 
+from keras import backend as K
+
+# set GPU memory
+if ('tensorflow' == K.backend()):
+    import tensorflow as tf
+    from keras.backend.tensorflow_backend import set_session
+
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    sess = tf.Session(config=config)
+
 
 # K.set_floatx('float16')
 
@@ -21,8 +32,11 @@ model = keras.models.load_model('model_use_vgg16_fine_tuning.h5', custom_objects
 # 不同数据
 for i in range(10):
     print('Round: ' + str(i))
+    # print('making data set')
     make_data_set()
+    # print('loading data set')
     x_train, y_train = load_data()
+    # print('training model')
     model.compile(optimizer=SGD(lr=0.0001, momentum=0.9), loss=loss)
     model.fit(x_train, y_train, epochs=2, batch_size=32)
     model.save('model_use_vgg16_fine_tuning.h5')

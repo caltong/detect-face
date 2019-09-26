@@ -7,6 +7,17 @@ from keras import backend as K
 from data_augmentation import make_data_set
 from keras.optimizers import SGD
 
+from keras import backend as K
+
+# set GPU memory
+if ('tensorflow' == K.backend()):
+    import tensorflow as tf
+    from keras.backend.tensorflow_backend import set_session
+
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    sess = tf.Session(config=config)
+
 base_model = VGG16(weights='imagenet', include_top=False)
 
 x = base_model.output
