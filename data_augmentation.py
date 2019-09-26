@@ -12,6 +12,10 @@ photos = os.listdir(data_rename_folder_path)
 
 
 def rename_image():
+    """
+    按照标准重命名文件
+    :return:
+    """
     file_number_counter = 0
     for file in files:
         image = Image.open(os.path.join(data_original_folder_path, file))
