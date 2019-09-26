@@ -19,7 +19,7 @@ def loss(y_true, y_pred):
 model = keras.models.load_model('model_use_vgg16_fine_tuning.h5', custom_objects={'loss': loss})
 # model = keras.models.load_model('model_use_vgg16.h5')
 # 不同数据
-for i in range(50):
+for i in range(5):
     print('Round: ' + str(i))
     make_data_set()
     x_train, y_train = load_data()
