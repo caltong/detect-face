@@ -7,13 +7,13 @@ from keras.optimizers import SGD
 from keras import backend as K
 
 # set GPU memory
-if ('tensorflow' == K.backend()):
-    import tensorflow as tf
-    from keras.backend.tensorflow_backend import set_session
-
-    config = tf.ConfigProto()
-    config.gpu_options.allow_growth = True
-    sess = tf.Session(config=config)
+# if ('tensorflow' == K.backend()):
+#     import tensorflow as tf
+#     from keras.backend.tensorflow_backend import set_session
+#
+#     config = tf.ConfigProto()
+#     config.gpu_options.allow_growth = True
+#     sess = tf.Session(config=config)
 
 
 # K.set_floatx('float16')
