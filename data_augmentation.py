@@ -97,6 +97,7 @@ def make_data_set():
             file_name_counter += 1
 
     photo_with_no_margin = os.listdir(data_rename_folder_path)
+    photo_with_no_margin.sort()
     for photo in photo_with_no_margin:
         image = Image.open(os.path.join(data_rename_folder_path, photo))
         margin_list.append([0, 0, 0, 0])
