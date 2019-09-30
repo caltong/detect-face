@@ -3,17 +3,18 @@ from load_data import load_data
 from keras import backend as K
 from data_augmentation import make_data_set
 from keras.optimizers import SGD
-
 from keras import backend as K
+from sklearn.model_selection import train_test_split
+
 
 # set GPU memory
-if ('tensorflow' == K.backend()):
-    import tensorflow as tf
-    from keras.backend.tensorflow_backend import set_session
-
-    config = tf.ConfigProto()
-    config.gpu_options.allow_growth = True
-    sess = tf.Session(config=config)
+# if ('tensorflow' == K.backend()):
+#     import tensorflow as tf
+#     from keras.backend.tensorflow_backend import set_session
+#
+#     config = tf.ConfigProto()
+#     config.gpu_options.allow_growth = True
+#     sess = tf.Session(config=config)
 
 
 # K.set_floatx('float16')
@@ -27,7 +28,7 @@ def loss(y_true, y_pred):
     return value
 
 
-model = keras.models.load_model('model_use_vgg16_fine_tuning.h5', custom_objects={'loss': loss})
+model = keras.models.load_model('model_by_2070.h5', custom_objects={'loss': loss})
 # model = keras.models.load_model('model_use_vgg16.h5')
 # 不同数据
 for i in range(10):
@@ -36,10 +37,11 @@ for i in range(10):
     make_data_set()
     # print('loading data set')
     x_train, y_train = load_data()
+    x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, test_size=0.1)
     # print('training model')
     model.compile(optimizer=SGD(lr=0.0001, momentum=0.9), loss=loss)
-    model.fit(x_train, y_train, epochs=2, batch_size=32)
-    model.save('model_use_vgg16_fine_tuning.h5')
+    model.fit(x_train, y_train, validation_data=(x_test, y_test), epochs=4, batch_size=32)
+    model.save('model_by_2070.h5')
 
 # 同数据
 # x_train, y_train = load_data()
