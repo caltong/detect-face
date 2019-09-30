@@ -7,8 +7,9 @@ data_original_folder_path = os.path.join('data', 'data_original')
 data_rename_folder_path = os.path.join('data', 'data_rename')
 data_covered_folder_path = os.path.join('data', 'data_covered')
 files = os.listdir(data_original_folder_path)
+files.sort()
 photos = os.listdir(data_rename_folder_path)
-
+photos.sort()
 
 def rename_image():
     """

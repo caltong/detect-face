@@ -19,6 +19,7 @@ def load_data():
     # 缩放每张图大小到224*224 VGG16输入尺寸 并且对应调整margin数值
     data_folder_path = os.path.join('data', 'data_covered')  # 数据集路径
     files = os.listdir(data_folder_path)  # 遍历所有图片
+    files.sort()
     x_train = []
     i = 0
     for file in files:
