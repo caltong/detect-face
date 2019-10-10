@@ -11,7 +11,7 @@ def loss(y_true, y_pred):
     return value
 
 
-model = keras.models.load_model('model_use_vgg16_fine_tuning.h5', custom_objects={'loss': loss})
+model = keras.models.load_model('model_by_2070.h5', custom_objects={'loss': loss})
 # model = keras.models.load_model('model_20190918.h5')
 output = []
 while True:
