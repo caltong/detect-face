@@ -38,8 +38,13 @@ def resize(filepath):
         coor1 = [int(center_coor[0] - width / 2), int(center_coor[1] - height / 2)]
         coor2 = [int(center_coor[0] + width / 2), int(center_coor[1] + height / 2)]
         coor = coor1 + coor2
+        for i in range(len(coor)):
+            if coor[i] < 0:
+                coor[i] = 0
         print(image.size, coor)
         image2 = image.crop(coor)
+    else:
+        image2 = image
 
     return image2
 
