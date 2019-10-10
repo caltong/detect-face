@@ -2,6 +2,7 @@ from mtcnn.mtcnn import MTCNN
 import cv2
 from PIL import Image
 import math
+from crop_use_opencv import crop_use_opencv
 
 
 def load_mtcnn_data(filepath):
@@ -38,14 +39,21 @@ def resize(filepath):
         coor1 = [int(center_coor[0] - width / 2), int(center_coor[1] - height / 2)]
         coor2 = [int(center_coor[0] + width / 2), int(center_coor[1] + height / 2)]
         coor = coor1 + coor2
+
+        # 防止溢出
         for i in range(len(coor)):
             if coor[i] < 0:
                 coor[i] = 0
+        if coor[2] > image.size[0]:
+            coor[2] = image.size[0]
+        if coor[3] > image.size[1]:
+            coor[3] = image.size[1]
+
         print(image.size, coor)
         image2 = image.crop(coor)
     else:
         image2 = image
-
+    # image2 = crop_use_opencv(image2)
     return image2
 
 

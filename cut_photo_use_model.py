@@ -92,9 +92,17 @@ def cut_photo_use_model(path):
         pixel = pixel / 255.0
         predict = model.predict(pixel)
         predict = [predict[0][0], predict[0][1], predict[0][2], predict[0][3]]
-        x, y = (predict[0] - predict[2] / 2) * photo.size[0], (predict[1] - predict[3] / 2) * photo.size[1]
-        w, h = predict[2] * photo.size[0], predict[3] * photo.size[1]
-        croped_photo = photo.crop((x, y, w, h))
+        x0, y0 = (predict[0] - predict[2] / 2) * photo.size[0], (predict[1] - predict[3] / 2) * photo.size[1]
+        if x0 < 0:
+            x0 = 0
+        if y0 < 0:
+            y0 = 0
+        x1, y1 = (predict[0] + predict[2] / 2) * photo.size[0], (predict[1] + predict[3] / 2) * photo.size[1]
+        if x1 > photo.size[0]:
+            x1 = photo.size[0]
+        if y1 > photo.size[1]:
+            y1 = photo.size[1]
+        croped_photo = photo.crop((x0, y0, x1, y1))
 
         croped_photo.save(path + '-' + 'photo' + '0' + '.png', 'PNG')
 
