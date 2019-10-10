@@ -91,7 +91,7 @@ def cut_photo_use_model(path):
         pixel = np.expand_dims(pixel, axis=0)
         pixel = pixel / 255.0
         predict = model.predict(pixel)
-        predict = [predict[0][0], predict[0][1], predict[0][2], predict[0][3]]
+        predict = [predict[0][0], predict[0][1], predict[0][2] - 0.05, predict[0][3] - 0.05]  # 去除偏差
         x0, y0 = (predict[0] - predict[2] / 2) * photo.size[0], (predict[1] - predict[3] / 2) * photo.size[1]
         if x0 < 0:
             x0 = 0

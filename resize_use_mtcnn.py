@@ -18,21 +18,23 @@ def load_mtcnn_data(filepath):
                       'top': result[0]['box'][1],
                       'width': result[0]['box'][2],
                       'height': result[0]['box'][3]}
+    center_coor = [face_rectangle['left'] + face_rectangle['width'] / 2,
+                   face_rectangle['top'] + face_rectangle['height'] / 2]
     face_area = face_rectangle['width'] * face_rectangle['height']
 
     img = Image.fromarray(img)
     image_width, image_height = img.size
     image_area = image_width * image_height
-    return img, left_eye, right_eye, nose_tip, face_area, image_area
+    return img, left_eye, right_eye, center_coor, face_area, image_area
 
 
 def resize(filepath):
-    image, left_eye, right_eye, nose_tip, face_area, image_area = load_mtcnn_data(filepath)
-    center_coor = [((left_eye[0] + right_eye[0]) / 2 + nose_tip[0]) / 2,
-                   ((left_eye[1] + right_eye[1]) / 2 + nose_tip[1]) / 2]
+    image, left_eye, right_eye, center_coor, face_area, image_area = load_mtcnn_data(filepath)
+    # center_coor = [((left_eye[0] + right_eye[0]) / 2 + nose_tip[0]) / 2,
+    #                ((left_eye[1] + right_eye[1]) / 2 + nose_tip[1]) / 2]
     # print(face_area, image_area)
-    if image_area / face_area > 3.5:
-        resize_area = face_area * 3.5
+    if image_area / face_area > 3.3:
+        resize_area = face_area * 3.3
         width = math.sqrt(resize_area / 1.4)
         height = width * 1.4
         print(width, height)
