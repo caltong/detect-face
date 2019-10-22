@@ -58,8 +58,9 @@ class DetectFace(object):
             count_number = count_number + 1
 
 
-search_photo = DetectFace('output_test')
-search_photo.search_photo()
+if __name__ == '__name__':
+    search_photo = DetectFace('output_test')
+    search_photo.search_photo()
 
 # # 读取图像，解决imread不能读取中文路径的问题
 # def cv_imread(file_path):

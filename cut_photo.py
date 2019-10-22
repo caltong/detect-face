@@ -64,10 +64,11 @@ class CutPhoto(object):
         return file_name_list
 
 
-for i in range(1, 16):
-    path = 'data/data_test/' + str(i) + '.png'
-    cut_photo = CutPhoto(path)
-    cut_photo.cut_photo()
+if __name__ == '__main__':
+    for i in range(1, 16):
+        path = 'data/data_test/' + str(i) + '.png'
+        cut_photo = CutPhoto(path)
+        cut_photo.cut_photo()
 
 # # 读取图像，解决imread不能读取中文路径的问题
 # def cv_imread(file_path):

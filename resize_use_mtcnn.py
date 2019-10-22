@@ -59,8 +59,9 @@ def resize(filepath):
     return image2
 
 
-for i in range(2, 16):
-    filepath = 'data/data_test/' + str(i) + '.png-photo0.png'
-    image2 = resize(filepath)
-    # image2.show()
-    image2.save(filepath)
+if __name__ == '__main__':
+    for i in range(2, 16):
+        filepath = 'data/data_test/' + str(i) + '.png-photo0.png'
+        image2 = resize(filepath)
+        # image2.show()
+        image2.save(filepath)

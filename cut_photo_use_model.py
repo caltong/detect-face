@@ -111,6 +111,7 @@ def cut_photo_use_model(path):
         return False
 
 
-for i in range(1, 16):
-    path = 'data/data_test/' + str(i) + '.png'
-    cut_photo_use_model(path)
+if __name__ == '__main__':
+    for i in range(1, 16):
+        path = 'data/data_test/' + str(i) + '.png'
+        cut_photo_use_model(path)
